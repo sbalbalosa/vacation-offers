@@ -5,7 +5,7 @@ import {
   // PayloadAction,
 } from "@reduxjs/toolkit";
 import { OfferEntity } from "../../models/Offer";
-import { AppThunk, RootState } from "../../app/store";
+import { RootState } from "../../app/store";
 
 export const fetchOffers = createAction("offers/fetchAll");
 

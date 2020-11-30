@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOffers, selectOffers } from "./offersSlice";
-import styles from "./Counter.module.css";
+import GalleryGridLayout from "../../components/PhotosLayout";
 
-export function Counter(): React.ReactElement {
+export default function Offers(): React.ReactElement {
   const offers = useSelector(selectOffers);
   const dispatch = useDispatch();
 
@@ -11,5 +11,5 @@ export function Counter(): React.ReactElement {
     dispatch(fetchOffers());
   }, [dispatch]);
 
-  return <pre>{JSON.stringify(offers)}</pre>;
+  return <GalleryGridLayout />;
 }
