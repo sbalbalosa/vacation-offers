@@ -14,6 +14,8 @@ export interface Props {
   footerAvatarSrc: string;
   footerAvatarAltText: string;
   footerDescription: string;
+  viewLink: string;
+  locationLink: string;
 }
 export default function PhotoCard(props: Props): React.ReactElement {
   return (
@@ -54,7 +56,9 @@ export default function PhotoCard(props: Props): React.ReactElement {
                   clipRule="evenodd"
                 />
               </svg>
-              <div>{props.locationName}</div>
+              <a href={props.locationLink} target="_blank" rel="noreferrer">
+                {props.locationName}
+              </a>
             </div>
           </div>
           <div className="flex flex-col text-right">
@@ -89,12 +93,15 @@ export default function PhotoCard(props: Props): React.ReactElement {
               <span>({props.ratingCount})</span>
             </span>
           </div>
-          <button
-            type="button"
+          <a
+            role="button"
+            href={props.viewLink}
+            target="_blank"
+            rel="noreferrer"
             className="bg-green-300 text-green-700 text-base font-semibold px-6 py-2 rounded-lg"
           >
             View
-          </button>
+          </a>
         </div>
       </div>
       <div className="col-start-1 row-start-1 flex h-72">

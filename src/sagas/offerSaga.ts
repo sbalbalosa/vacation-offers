@@ -1,16 +1,76 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, select, all } from "redux-saga/effects";
 import * as api from "../services/offers";
-import { offersReceived, fetchOffers } from "../features/offers/offersSlice";
+import {
+  offersCursorReceived,
+  offersReceived,
+  fetchOffers,
+  toggleIsLoading,
+  nextSearch,
+  previousSearch,
+  offersErrorReceived,
+} from "../features/offers/offersSlice";
 
 export function* searchOffers() {
-  // try {
-  const offers = yield call(api.searchOffers, "Mallorca,%20Spanien");
-  yield put(offersReceived(offers));
-  // } catch (e) {
-  //   yield put()
-  // }
+  yield put(toggleIsLoading());
+  try {
+    const response = yield call(api.searchOffers, "Mallorca,%20Spanien");
+    yield put(offersReceived(response.entities));
+    yield put(offersCursorReceived(response.cursor));
+  } catch (e) {
+    yield put(
+      offersErrorReceived("Oops something went wrong while searching offers")
+    );
+  }
+  yield put(toggleIsLoading());
+}
+
+export function* nextSearchOffers() {
+  const state = yield select();
+  const { nextPage } = state.offers;
+  if (nextPage) {
+    yield put(toggleIsLoading());
+    yield put(offersReceived([]));
+    try {
+      const response = yield call(api.fetchSearchOffersFromPath, nextPage);
+      yield put(offersReceived(response.entities));
+      yield put(offersCursorReceived(response.cursor));
+    } catch (e) {
+      yield put(
+        offersErrorReceived(
+          "Oops something went wrong while searching next offers"
+        )
+      );
+    }
+
+    yield put(toggleIsLoading());
+  }
+}
+
+export function* previousSearchOffers() {
+  const state = yield select();
+  const { previousPage } = state.offers;
+  if (previousPage) {
+    yield put(toggleIsLoading());
+    yield put(offersReceived([]));
+    try {
+      const response = yield call(api.fetchSearchOffersFromPath, previousPage);
+      yield put(offersReceived(response.entities));
+      yield put(offersCursorReceived(response.cursor));
+    } catch (e) {
+      yield put(
+        offersErrorReceived(
+          "Oops something went wrong while searching previous offers"
+        )
+      );
+    }
+    yield put(toggleIsLoading());
+  }
 }
 
 export default function* offersSaga() {
-  yield takeEvery(fetchOffers.toString(), searchOffers);
+  yield all([
+    takeEvery(fetchOffers.toString(), searchOffers),
+    takeEvery(nextSearch.toString(), nextSearchOffers),
+    takeEvery(previousSearch.toString(), previousSearchOffers),
+  ]);
 }
