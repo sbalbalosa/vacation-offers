@@ -2,7 +2,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import * as api from "../services/offers";
 import { offersReceived, fetchOffers } from "../features/offers/offersSlice";
 
-function* searchOffers() {
+export function* searchOffers() {
   // try {
   const offers = yield call(api.searchOffers, "Mallorca,%20Spanien");
   yield put(offersReceived(offers));

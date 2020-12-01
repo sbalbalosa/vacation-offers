@@ -17,7 +17,10 @@ export interface Props {
 }
 export default function PhotoCard(props: Props): React.ReactElement {
   return (
-    <div className="grid grid-cols-1 bg-white pb-4 shadow-lg rounded-md">
+    <div
+      role="grid"
+      className="grid grid-cols-1 bg-white pb-4 shadow-lg rounded-md"
+    >
       <div className="relative z-10 col-start-1 row-start-1 px-4 pt-40 pb-3 bg-gradient-to-t from-black h-72">
         <p className="text-sm font-medium text-white">{props.imageTitle}</p>
         <h2 className="text-xl font-semibold text-white">

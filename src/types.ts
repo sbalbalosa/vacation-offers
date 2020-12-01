@@ -73,7 +73,7 @@ export interface Usp {
   id: string;
   format: string;
   value: number;
-  unit: string;
+  unit: string | null;
   group: string;
 }
 
@@ -128,14 +128,14 @@ export interface FreeCancellation {
 }
 
 export interface CancellationPolicy {
-  freeCancellation: FreeCancellation;
+  freeCancellation: FreeCancellation | null;
 }
 
 export interface Offer {
   metaData: OfferMetaData;
   id: string;
   isAvailable?: any;
-  outboundLink: string;
+  outboundLink: string | null;
   internalLink: string;
   provider: Provider;
   price: Price;
