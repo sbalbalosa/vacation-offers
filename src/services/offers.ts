@@ -26,7 +26,7 @@ export async function searchOffers(
 export async function fetchSearchOffersFromPath(
   path: string
 ): Promise<OffersSearchResponse> {
-  const response = await fetch(`${basePath}/${path}`).then(
+  const response = await fetch(`${basePath}${path}`).then(
     (x) => (x.json() as unknown) as OffersResponse
   );
   const entities = response.offers.map(transformOfferResponseToEntity);

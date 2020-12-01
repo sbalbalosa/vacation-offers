@@ -10,7 +10,15 @@ export const fetchOffers = createAction("offers/fetchAll");
 export const nextSearch = createAction("offers/nextSearch");
 export const previousSearch = createAction("offers/previousSearch");
 
-const entityAdapter = createEntityAdapter<OfferEntity>({
+const entityAdapter = createEntityAdapter<
+  OfferEntity & {
+    isLoading: boolean;
+    nextPage: string | null;
+    previousPage: string | null;
+    totalCount: number;
+    error: string | null;
+  }
+>({
   selectId: (entity) => entity.id,
 });
 
