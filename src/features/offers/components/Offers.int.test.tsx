@@ -7,6 +7,9 @@ import Offers from "./Offers";
 const ids = SearchResponse.offers.map((x) => x.id);
 const nextIds = SearchNextResponse.offers.map((x) => x.id);
 
+const noop = () => {};
+Object.defineProperty(window, "scrollTo", { value: noop, writable: true });
+
 describe("features/offers/components/Offers", () => {
   it("should display a page and load offers from an api upon initial load", async () => {
     render(<Offers />);

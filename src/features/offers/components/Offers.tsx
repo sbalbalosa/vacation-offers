@@ -82,7 +82,10 @@ export default function Offers(): React.ReactElement {
             <button
               aria-label="previousPage"
               className="bg-gray-200 text-gray-700 text-base font-semibold px-6 py-2 rounded-lg"
-              onClick={() => dispatch(previousSearch())}
+              onClick={() => {
+                dispatch(previousSearch());
+                window.scrollTo(0, 0);
+              }}
             >
               Previous
             </button>
@@ -92,7 +95,10 @@ export default function Offers(): React.ReactElement {
             <button
               aria-label="nextPage"
               className="bg-gray-200 text-gray-700 text-base font-semibold px-6 py-2 rounded-lg"
-              onClick={() => dispatch(nextSearch())}
+              onClick={() => {
+                dispatch(nextSearch());
+                window.scrollTo(0, 0);
+              }}
             >
               Next
             </button>
