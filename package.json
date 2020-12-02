@@ -24,6 +24,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "coverage": "craco test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,6 +40,20 @@
       "plugin:prettier/recommended",
       "plugin:testing-library/react",
       "plugin:jest-dom/recommended"
+    ]
+  },
+  "jest": {
+   "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!/node_modules/",
+      "!src/index.tsx",
+      "!src/serviceWorker.ts",
+      "!src/App.tsx",
+      "!src/react-app-env.d.ts",
+      "!src/types.ts",
+      "!src/components/index.ts",
+      "!src/app/**/*.{ts,tsx}",
+      "!src/mocks/**/*.{ts,tsx}"
     ]
   },
   "browserslist": {
