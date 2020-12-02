@@ -1,5 +1,5 @@
 import React from "react";
-import Offers from "./features/offers/Offers";
+import Offers from "./features/offers/components/Offers";
 
 function App(): React.ReactElement {
   return (

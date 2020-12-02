@@ -3,6 +3,9 @@ import React from "react";
 export default function Loading(): React.ReactElement {
   return (
     <svg
+      role="alert"
+      aria-label="loading"
+      aria-busy="true"
       className="animate-spin -ml-1 mr-3 h-14 w-14 text-blue-500"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

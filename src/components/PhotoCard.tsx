@@ -1,5 +1,6 @@
 import React from "react";
 export interface Props {
+  id: string | number;
   imageSrc: string;
   imageAltText: string;
   imageTitle: string;
@@ -21,6 +22,8 @@ export default function PhotoCard(props: Props): React.ReactElement {
   return (
     <div
       role="grid"
+      aria-label="photoCard"
+      data-testid={props.id}
       className="grid grid-cols-1 bg-white pb-4 shadow-lg rounded-md"
     >
       <div className="relative z-10 col-start-1 row-start-1 px-4 pt-40 pb-3 bg-gradient-to-t from-black h-72">
@@ -56,7 +59,12 @@ export default function PhotoCard(props: Props): React.ReactElement {
                   clipRule="evenodd"
                 />
               </svg>
-              <a href={props.locationLink} target="_blank" rel="noreferrer">
+              <a
+                href={props.locationLink}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="locationLink"
+              >
                 {props.locationName}
               </a>
             </div>
@@ -94,10 +102,10 @@ export default function PhotoCard(props: Props): React.ReactElement {
             </span>
           </div>
           <a
-            role="button"
             href={props.viewLink}
             target="_blank"
             rel="noreferrer"
+            aria-label="productLink"
             className="bg-green-300 text-green-700 text-base font-semibold px-6 py-2 rounded-lg"
           >
             View

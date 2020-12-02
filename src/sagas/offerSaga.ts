@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { call, put, takeEvery, select, all } from "redux-saga/effects";
 import * as api from "../services/offers";
 import {
@@ -9,11 +10,15 @@ import {
   previousSearch,
   offersErrorReceived,
 } from "../features/offers/offersSlice";
+import { OffersSearchResponse } from "../services/offers";
 
 export function* searchOffers() {
   yield put(toggleIsLoading());
   try {
-    const response = yield call(api.searchOffers, "Mallorca,%20Spanien");
+    const response = (yield call(
+      api.searchOffers,
+      "Mallorca,%20Spanien"
+    )) as OffersSearchResponse;
     yield put(offersReceived(response.entities));
     yield put(offersCursorReceived(response.cursor));
   } catch (e) {

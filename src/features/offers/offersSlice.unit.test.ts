@@ -15,20 +15,18 @@ import { OfferEntity } from "../../models/offer";
 const offers = [
   { id: "1", name: "test" },
   { id: "2", name: "test2" },
-];
-const offerEntities: OfferEntity[] = [...(offers as OfferEntity[])];
+] as OfferEntity[];
 const offersState: RootState["offers"] = {
   ...initialState.offers,
   ids: offers.map((x) => x.id),
   entities: {
-    [offerEntities[0].id]: offerEntities[0],
-    [offerEntities[1].id]: offerEntities[1],
+    [offers[0].id]: offers[0],
+    [offers[1].id]: offers[1],
   },
 };
 
 describe("features/offers/offersSlice", () => {
   it("should get all offers from state", () => {
-    const expectedEntities: OfferEntity[] = offers as OfferEntity[];
     const state = {
       ...initialState,
       offers: offersState,
@@ -36,13 +34,10 @@ describe("features/offers/offersSlice", () => {
 
     const entities = selectOffers(state);
 
-    expect(entities).toStrictEqual(expectedEntities);
+    expect(entities).toStrictEqual(offers);
   });
   it("should set offers to state", () => {
-    const state = reducer(
-      initialState.offers,
-      offersReceived(offers as OfferEntity[])
-    );
+    const state = reducer(initialState.offers, offersReceived(offers));
 
     expect(state).toStrictEqual(offersState);
   });
@@ -94,13 +89,22 @@ describe("features/offers/offersSlice", () => {
     expect(error).toBe("test");
   });
   it("should get cursor", () => {
-    const state = {
+    const state: RootState = {
       ...initialState,
       offers: offersState,
     };
+    const expectedCursor = (({
+      nextPage,
+      previousPage,
+      totalCount,
+    }: RootState["offers"]) => ({
+      nextPage: !!nextPage,
+      previousPage: !!previousPage,
+      totalCount,
+    }))(state.offers);
 
-    const isLoading = selectIsLoading(state);
+    const cursor = selectCursor(state);
 
-    expect(isLoading).toBe(state.offers.isLoading);
+    expect(cursor).toStrictEqual(expectedCursor);
   });
 });

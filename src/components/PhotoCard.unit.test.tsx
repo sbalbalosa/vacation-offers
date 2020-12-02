@@ -6,6 +6,7 @@ describe("components/PhotoCard", () => {
   it("should render", () => {
     render(
       <PhotoCard
+        id="test"
         footerAvatarAltText="footerAltText"
         footerAvatarSrc="footerAvatarSrc"
         footerDescription="footerDescription"
@@ -20,9 +21,12 @@ describe("components/PhotoCard", () => {
         priceDescription="priceDescription"
         ratingCount="ratingCount"
         ratingValue="ratingValue"
+        locationLink="locationLink"
+        viewLink="viewLink"
       />
     );
 
+    expect(screen.getByTestId("test")).toBeInTheDocument();
     expect(screen.getByText("footerDescription")).toBeInTheDocument();
     expect(screen.getByText("guestCount")).toBeInTheDocument();
     expect(screen.getByText("imageDescription")).toBeInTheDocument();
@@ -32,5 +36,11 @@ describe("components/PhotoCard", () => {
     expect(screen.getByText("priceBreakdown")).toBeInTheDocument();
     expect(screen.getByText("(ratingCount)")).toBeInTheDocument();
     expect(screen.getByText("ratingValue")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "locationLink" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "productLink" })
+    ).toBeInTheDocument();
   });
 });

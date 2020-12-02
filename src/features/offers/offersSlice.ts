@@ -10,15 +10,7 @@ export const fetchOffers = createAction("offers/fetchAll");
 export const nextSearch = createAction("offers/nextSearch");
 export const previousSearch = createAction("offers/previousSearch");
 
-const entityAdapter = createEntityAdapter<
-  OfferEntity & {
-    isLoading: boolean;
-    nextPage: string | null;
-    previousPage: string | null;
-    totalCount: number;
-    error: string | null;
-  }
->({
+const entityAdapter = createEntityAdapter<OfferEntity>({
   selectId: (entity) => entity.id,
 });
 
@@ -28,7 +20,13 @@ const entitySelector = entityAdapter.getSelectors<RootState>(
 
 const offersSlice = createSlice({
   name: "offers",
-  initialState: entityAdapter.getInitialState({
+  initialState: entityAdapter.getInitialState<{
+    isLoading: boolean;
+    nextPage: boolean | null;
+    previousPage: boolean | null;
+    totalCount: number;
+    error: string | null;
+  }>({
     isLoading: false,
     nextPage: null,
     previousPage: null,
@@ -70,11 +68,11 @@ export const selectError = (state: RootState): string | null =>
 
 export const selectCursor = (
   state: RootState
-): { next: boolean; previous: boolean; totalCount: number } => {
+): { nextPage: boolean; previousPage: boolean; totalCount: number } => {
   const { nextPage, previousPage, totalCount } = state.offers;
   return {
-    next: !!nextPage,
-    previous: !!previousPage,
+    nextPage: !!nextPage,
+    previousPage: !!previousPage,
     totalCount: totalCount,
   };
 };
