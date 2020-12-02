@@ -1,4 +1,4 @@
-# Solution by Sharlon Balbalosa
+# Vacation Offers Application
 
 ### Hi!
 
